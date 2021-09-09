@@ -38,3 +38,9 @@ tar cvfz /bkp/bkp-Semanal/backupProyecto-$(date +%Y-%m-%d).tar.gz /home/Scripts/
 #Respaldo /bkp-etc
 tar cvfz /bkp/bkp-Semanal-Completo/bkp-Semanal-$(date +%Y-%m-%d).tar.gz /bkp/bkp-Semanal
 mkdir -p /bkp/bkp-Semanal
+
+
+count=`ls /bkp/bkp-Semanal-Completo/ | wc -l`
+if [ "$count" -gt "3" ] then
+
+	rm "$(ls -t | tail -1)"

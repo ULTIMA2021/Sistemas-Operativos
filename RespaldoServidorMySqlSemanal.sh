@@ -31,10 +31,14 @@ tar cvfz /bkp/bkp-Semanal/backupHome-$(date +%Y-%m-%d).tar.gz /home
 tar cvfz /bkp/bkp-Semanal/backupProyecto-$(date +%Y-%m-%d).tar.gz /home/Scripts/Ultima 
 #Respaldar Base de Datos 
 mysqldump -u root –p miclave3035 
-mibase > mibase.sql 
-gzip mibase.sql 
+mibase > mibase.sql gzip mibase.sql 
 mv mibase.sql.gz /bkp/bkp-Semanal
 
 #Respaldo /bkp-etc
 tar cvfz /bkp/bkp-Semanal-Completo/bkp-Semanal-$(date +%Y-%m-%d).tar.gz /bkp/bkp-Semanal
 mkdir -p /bkp/bkp-Semanal
+
+count=`ls /bkp/bkp-Semanal-Completo/ | wc -l`
+if [ "$count" -gt "3" ] then
+
+	rm "$(ls -t | tail -1)"
