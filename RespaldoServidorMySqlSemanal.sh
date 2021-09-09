@@ -31,7 +31,8 @@ tar cvfz /bkp/bkp-Semanal/backupHome-$(date +%Y-%m-%d).tar.gz /home
 tar cvfz /bkp/bkp-Semanal/backupProyecto-$(date +%Y-%m-%d).tar.gz /home/Scripts/Ultima 
 #Respaldar Base de Datos 
 mysqldump -u root –p miclave3035 
-mibase > mibase.sql gzip mibase.sql 
+mibase > mibase.sql 
+gzip mibase.sql 
 mv mibase.sql.gz /bkp/bkp-Semanal
 
 #Respaldo /bkp-etc
