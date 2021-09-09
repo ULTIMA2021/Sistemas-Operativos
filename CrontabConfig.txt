@@ -1,0 +1,14 @@
+#Crontab Mysql
+
+0 1 * * 6 /home/Scripts/Ultima/RespaldoServidorMySqlSemanal.sh 
+0 1 * * 0-5 /home/Scripts/Ultima/RespaldoBaseDeDatos.sh 
+
+
+#Crontab Samba
+
+0 1 * * 6 /home/Scripts/Ultima/RespaldoServidorSambaSemanal.sh 
+0 1 * * 0-5 /home/Scripts/Ultima/SambaBackup.sh
+
+#Crontab Generico
+
+0 1 * * 6 /home/Scripts/Ultima/RespaldoSemanalGenerico.sh 
