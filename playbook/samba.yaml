@@ -28,3 +28,19 @@
       job: "/home/Scripts/Ultima/SambaBackup.sh "
       cron_file: RespaldoSamba 
   
+  - name: samba
+    yum:
+      name: samba
+      state: latest
+
+  - name: Habilitar samba
+    ansible.builtin.systemd:
+      name: smb.service
+      enabled: yes
+    become: yes
+
+  - name: Habilita samba
+    ansible.builtin.systemd:
+      name: nmb.service
+      enabled: yes
+    become: yes
