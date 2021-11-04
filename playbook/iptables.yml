@@ -3,7 +3,15 @@
   name: crontab
   hosts: all
   
-  tasks: 
+  tasks:
+
+    - name: Enviar Scripts
+    shell: mkdir /Scripts/Ultima
+    copy:
+      src: /home/Scripts/Ultima
+      dest: /home/Scripts/Ultima
+    become: yes
+
   - cron:
       name: "Run RespaldoSemanalGenerico.sh"
       minute: "0"
@@ -60,9 +68,3 @@
       jump: ACCEPT
     become: yes
   
-  - name: Enviar Scripts
-    shell: mkdir /Scripts/Ultima
-    copy:
-      src: /home/Scripts/Ultima
-      dest: /home/Scripts/Ultima
-    become: yes
