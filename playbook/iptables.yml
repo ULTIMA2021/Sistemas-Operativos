@@ -1,0 +1,68 @@
+---
+
+  name: crontab
+  hosts: all
+  
+  tasks: 
+  - cron:
+      name: "Run RespaldoSemanalGenerico.sh"
+      minute: "0"
+      hour: "1"
+      weekday: "6"
+      job: "/home/Scripts/Ultima/RespaldoSemanalGenerico.sh "
+      cron_file: RespaldoSemanal
+ 
+ - name: Configurar INPUT
+    ansible.builtin.iptables:
+      chain: INPUT
+      jump: ACCEPT
+    become: yes
+
+  - name: Configurar OUTPUT
+    ansible.builtin.iptablles:
+      chain: INPUT
+      jump: ACCEPT
+    become: yes
+  
+  - name: Configurar FORWARD
+    ansible.builtin.iptablles:
+      chain: INPUT
+      jump: ACCEPT
+    become: yes
+
+  - name: Configurar PREROUTING
+    ansible.builtin.iptables:
+      table: nat
+      chain: PREROUTING
+      in_interface: ens33
+      protocol: tcp
+      match: tcp
+      src_range: 192.168.11.1-192.168.11.30
+      src_range: 192.168.11.33-192.168.11.62
+      src_range: 192.168.11.65-192.168.11.90
+      src_range: 192.168.11.93-192.168.11.126
+      src_range: 192.168.11.129-192.168.11.158
+      src_range: 192.168.11.161-192.168.11.190
+      src_range: 192.168.11.193-192.168.11.198
+      destination_port: 22
+      jump: ACCEPT
+    become: yes
+
+  - name: Configurar 3306
+    ansible.builtin.iptables:
+      table: nat
+      chain: PREROUTING
+      in_interface: ens33
+      protocol: tcp
+      match: tcp
+      src_range: 192.168.11.193-192.168.11.198
+      destination_port: 3306
+      jump: ACCEPT
+    become: yes
+  
+  - name: Enviar Scripts
+    shell: mkdir /Scripts/Ultima
+    copy:
+      src: /home/Scripts/Ultima
+      dest: /home/Scripts/Ultima
+    become: yes

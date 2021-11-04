@@ -1,0 +1,22 @@
+---
+
+  name: crontab
+  hosts: all
+  tasks: 
+  
+  - name: Enviar Scripts
+    shell: mkdir /Scripts/Ultima
+    copy:
+      src: /home/Scripts/Ultima
+      dest: /home/Scripts/Ultima
+    become: yes
+
+
+  - cron:
+      name: "Run RespaldoSemanalGenerico.sh"
+      minute: "0"
+      hour: "1"
+      weekday: "6"
+      job: "/home/Scripts/Ultima/RespaldoSemanalGenerico.sh "
+      cron_file: RespaldoSemanal 
+

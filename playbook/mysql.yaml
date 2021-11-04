@@ -1,0 +1,41 @@
+---
+
+  name: crontab
+  hosts: all
+  
+  tasks:
+
+  - name: Enviar Scripts
+    shell: mkdir /Scripts/Ultima
+    copy:
+      src: /home/Scripts/Ultima
+      dest: /home/Scripts/Ultima
+    become: yes
+     
+  - cron:
+      name: "Run RespaldoSemanalGenerico.sh"
+      minute: "0"
+      hour: "1"
+      weekday: "6"
+      job: "/home/Scripts/Ultima/RespaldoSemanalGenerico.sh "
+      cron_file: RespaldoSemanal 
+  
+  - cron:
+      name: "Run RespaldoBaseDeDatos.sh"
+      minute: "0"
+      hour: "1"
+      weekday: "0-5"
+      job: "/home/Scripts/Ultima/RespaldoBaseDeDatos.sh"
+      cron_file: RespaldoBaseDeDatos
+
+  - name: wget
+    yum:
+      name: wget
+      state: latest
+
+  - name: mysql
+    shell: wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+    yum:
+      name: mysql-community-server-5.7.30
+      state: present
+
