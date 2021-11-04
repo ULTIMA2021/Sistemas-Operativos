@@ -8,7 +8,7 @@ echo
 if [ -d /var/lib/mysql/$base ]
 then
         read -p "Usuario: " usuario;
-        mysqldump -u $usuario -p $base > /etc/bkp/bkp-DB-$base-$(date +%Y-%m-%d)$sql
+        mysqldump -u $usuario -p $base > /bkp/bkp-DB-$base-$(date +%Y-%m-%d)$sql
         echo "Respaldo de Base de datos Listo!"
 
 
